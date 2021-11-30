@@ -47,9 +47,8 @@ exports.getUserWithId = getUserWithId;
  */
 const addUser = (param) => {
   return pool
-    .query(`INSERT INTO users(1002, name, password, email) VALUES($1,$2,$2);`, [param.name, param.password, param.email ])
+    .query(`INSERT INTO users(name,password,email) VALUES($1,$2,$3) RETURNING *;`, [ param.name, param.password, param.email ])
     .then((result) => {
-      console.log(result)
       result.rows[0]})
     .catch((err) => err.message);
 };
